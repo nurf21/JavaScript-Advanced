@@ -34,3 +34,20 @@ function factorial(n) {
 }
 
 console.log(factorial(5));
+
+// Fibonacci numbers
+// ==================================================
+
+function fib(n) {
+  if (n < 2) return n;     // by convention: fib(0)=0, fib(1)=1
+  let a = 0, b = 1;        // will hold fib(i-2) and fib(i-1)
+  for (let i = 2; i <= n; i++) {
+    [a, b] = [b, a + b];   // shift window: new fib(i) = old fib(i-1)+fib(i-2)
+  }
+  return b;
+}
+
+// Examples:
+console.log(fib(3));
+console.log(fib(7));
+console.log(fib(77));
