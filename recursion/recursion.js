@@ -55,7 +55,7 @@ console.log(fib(77));
 // Output a single-linked list
 // ==================================================
 
-// 1) The list
+// The list
 let list = {
   value: 1,
   next: {
@@ -70,7 +70,7 @@ let list = {
   }
 };
 
-// 2) Iterative print
+// Iterative print
 function printList(list) {
   let node = list;
   while (node) {
@@ -79,26 +79,46 @@ function printList(list) {
   }
 }
 
-// 3) Recursive print
+// Recursive print
 function printListRec(list) {
   if (!list) return;
   console.log(list.value);
   printListRec(list.next);
 }
 
-// 4) Recursive reverse print
-function printReverse(list) {
-  if (!list) return;
-  printReverse(list.next);
-  console.log(list.value);
-}
-
-// 5) Demo
+// Demo
 console.log("Iterative:");
 printList(list);
 
 console.log("Recursive:");
 printListRec(list);
 
-console.log("Reverse Recursion:");
-printReverse(list);
+// Output a single-linked list in the reverse order
+// ==================================================
+
+// Iterative solution: collect into an array, then loop backwards
+function printReverseLoop(list) {
+  const vals = [];
+  let node = list;
+  while (node) {
+    vals.push(node.value);
+    node = node.next;
+  }
+  for (let i = vals.length - 1; i >= 0; i--) {
+    console.log(vals[i]);
+  }
+}
+
+// Recursive solution: recurse to the end, then print on the unwind
+function printReverseRec(list) {
+  if (!list) return;
+  printReverseRec(list.next);
+  console.log(list.value);
+}
+
+// Demo:
+console.log("Reverse via loop:");
+printReverseLoop(list);
+
+console.log("Reverse via recursion:");
+printReverseRec(list);
