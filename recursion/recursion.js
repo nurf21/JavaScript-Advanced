@@ -51,3 +51,54 @@ function fib(n) {
 console.log(fib(3));
 console.log(fib(7));
 console.log(fib(77));
+
+// Output a single-linked list
+// ==================================================
+
+// 1) The list
+let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+// 2) Iterative print
+function printList(list) {
+  let node = list;
+  while (node) {
+    console.log(node.value);
+    node = node.next;
+  }
+}
+
+// 3) Recursive print
+function printListRec(list) {
+  if (!list) return;
+  console.log(list.value);
+  printListRec(list.next);
+}
+
+// 4) Recursive reverse print
+function printReverse(list) {
+  if (!list) return;
+  printReverse(list.next);
+  console.log(list.value);
+}
+
+// 5) Demo
+console.log("Iterative:");
+printList(list);
+
+console.log("Recursive:");
+printListRec(list);
+
+console.log("Reverse Recursion:");
+printReverse(list);
