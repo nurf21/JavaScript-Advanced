@@ -61,6 +61,6 @@ function sum(a) {
   return f;
 }
 
-console.log(sum(1)(2)(3)(4) == 10); 
+console.log(sum(1)(2)(3)(4) == 10);
 console.log(Number(sum(10)(-4)(7)));
 console.log(`Total: ${sum(2)(3)(4)}`);
