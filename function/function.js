@@ -51,3 +51,16 @@ cClosure.set(10);
 console.log(cClosure());
 console.log(cClosure.decrease());
 console.log(cClosure());
+
+// Sum with an arbitrary amount of brackets
+// ==================================================
+
+function sum(a) {
+  const f = b => sum(a + b);        // keep chaining
+  f[Symbol.toPrimitive] = () => a;  // whenever JS needs a number → give a
+  return f;
+}
+
+console.log(sum(1)(2)(3)(4) == 10); 
+console.log(Number(sum(10)(-4)(7)));
+console.log(`Total: ${sum(2)(3)(4)}`);
