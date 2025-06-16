@@ -67,4 +67,50 @@ const debouncedF = debounce(f, 1000);
 
 debouncedF("a");
 setTimeout(() => debouncedF("b"), 200);
-setTimeout(() => debouncedF("c"), 500); 
+setTimeout(() => debouncedF("c"), 500);
+// After 1000ms from the last call, f("c") will be logged to the console.
+
+// Throttle decorator
+// ==================================================
+
+function throttle(f, ms) {
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper(...args) {
+    if (isThrottled) {
+      // Always keep the latest arguments and context.
+      savedArgs = args;
+      savedThis = this;
+      return;
+    }
+
+    // Call immediately if not throttled.
+    f.apply(this, args);
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
+      // If calls were made during throttling, call f with the latest arguments.
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
+
+function update(pointer) {
+  console.log("Updating pointer coordinates:", pointer);
+}
+
+const throttledUpdate = throttle(update, 100);
+
+// Simulate rapid calls (e.g. on mousemove events).
+throttledUpdate({ x: 10, y: 20 });
+throttledUpdate({ x: 12, y: 22 });
+throttledUpdate({ x: 15, y: 25 });
+// Only the first call is executed immediately and, after 100ms, the latest arguments are used.
