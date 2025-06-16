@@ -1,3 +1,6 @@
+// Spy decorator
+// ==================================================
+
 function spy(func) {
   function wrapper(...args) {
     wrapper.calls.push(args);
