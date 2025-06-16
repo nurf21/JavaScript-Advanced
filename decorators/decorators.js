@@ -44,3 +44,27 @@ let f1500 = delay(f, 1500);
 
 f1000("test");
 f1500("test");
+
+// Debounce decorator
+// ==================================================
+
+function debounce(f, ms) {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      f.apply(context, args);
+    }, ms);
+  };
+}
+
+function f(message) {
+  console.log(message);
+}
+
+const debouncedF = debounce(f, 1000);
+
+debouncedF("a");
+setTimeout(() => debouncedF("b"), 200);
+setTimeout(() => debouncedF("c"), 500); 
